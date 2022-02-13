@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-subtitle>Wybierz adres</mat-card-subtitle>
+  <mat-card-content>
+    <mat-form-field class="midi-width" appearance="fill">
+      <mat-label>Wpisz adres API</mat-label>
+      <input matInput [(ngModel)]="locationAddress">
+    </mat-form-field>
+    <button mat-button (click)="loadData()" *ngIf="(mapStore.loading$ | async) as loading" [disabled]="loading === LoadingState.loading">
+      <ng-container [ngSwitch]="loading">
+        <div *ngSwitchCase="LoadingState.ready" class="btn-inner">
+           Pobierz
+        </div>
+        <div *ngSwitchCase="LoadingState.loading" class="btn-inner">
+          <mat-spinner [diameter]="20"></mat-spinner> Proszę czekać...
+        </div>
+      </ng-container>
+    </button>
+  </mat-card-content>
+</mat-card>

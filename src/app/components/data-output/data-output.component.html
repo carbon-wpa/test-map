@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-subtitle>Rezultat</mat-card-subtitle>
+  <mat-card-content>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Współrzędne</mat-label>
+      <textarea matInput [disabled]="true" *ngIf="(mapStore.cords$ | async) as cords">
+        {{cords | json}}
+      </textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Laboratoria</mat-label>
+      <textarea matInput [disabled]="true" *ngIf="(mapStore.labs$ | async) as labs">
+        {{labs | json}}
+      </textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>

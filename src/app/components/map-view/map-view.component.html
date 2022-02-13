@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-subtitle>Mapa</mat-card-subtitle>
+  <mat-card-content>
+    <!-- to połączenie dwóch observabli nie jest do końca estetyczne, można zrobić unifikacje w mapData$ lub zrobić nowy jeden selektor w storze -->
+    <ng-container *ngIf="(mapData$ | async) as mapData">
+      <ng-container *ngIf="(mapStore.labs$ | async) as labs">
+        <agm-map [latitude]="$any(mapData.avgLat)" [longitude]="$any(mapData.avgLng)" [zoom]="$any(mapData.zoom)">
+          <agm-marker
+            *ngFor="let lab of labs; let i = index"
+            [latitude]="$any(lab.gpsLat)"
+            [longitude]="$any(lab.gpsLng)"
+            [markerDraggable]="false">
+
+            <agm-info-window [disableAutoPan]="true">
+              <div class="map-marker-hint">
+                <b>{{lab.nazwa}}</b><br/>
+                {{lab.adres}},<br/>
+                {{lab.kodPocztowy}} {{lab.miejscowosc}}<br/>
+                <ng-container *ngIf="lab.info">
+                  info: {{lab.info}}
+                </ng-container>
+              </div>
+            </agm-info-window>
+
+          </agm-marker>
+        </agm-map>
+      </ng-container>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
